@@ -157,8 +157,9 @@ module HypeMachine
         end
       end
 
+      idx = index.to_s.rjust(3, '0')
       trackname = "#{artist}___#{title}".gsub(DEFAULTS[:filename][:invalid_characters], '_')
-      filename  = "#{index}__#{trackname}___#{id}___#{timestamp}"
+      filename  = "#{idx}__#{trackname}___#{id}___#{timestamp}"
       filepath  = "#{directory}/#{filename}.#{DEFAULTS[:filename][:extension]}"
 
       available_length = DEFAULTS[:filename][:max_length] - filepath.length
