@@ -123,8 +123,8 @@ module HypeMachine
       self.total += total
 
       puts "\tFound #{total} tracks at #{page_url}", '' unless options[:quiet]
-      tracks.each do |track|
-        success = download(document, track, page_url)
+      tracks.each_with_index do |track, index|
+        success = download(document, index, track, page_url)
         if success.nil?
           failed      += 1
           self.failed += 1
@@ -140,7 +140,7 @@ module HypeMachine
       puts "\tFinished downloading tracks from #{page_url}", "\t#{total} total, #{completed} completed, #{skipped} skipped, #{failed} failed", '' unless options[:quiet]
     end
 
-    def download (document, track, page_url)
+    def download (document, index, track, page_url)
       success   = nil
       id        = track['id']
       key       = track['key']
@@ -158,7 +158,7 @@ module HypeMachine
       end
 
       trackname = "#{artist}___#{title}".gsub(DEFAULTS[:filename][:invalid_characters], '_')
-      filename  = "#{trackname}___#{id}___#{timestamp}"
+      filename  = "#{index}__#{trackname}___#{id}___#{timestamp}"
       filepath  = "#{directory}/#{filename}.#{DEFAULTS[:filename][:extension]}"
 
       available_length = DEFAULTS[:filename][:max_length] - filepath.length
