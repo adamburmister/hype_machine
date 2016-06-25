@@ -22,6 +22,6 @@ echo "Generating Hype Machine Favourite tracks M3U playlist"
 for f in /tmp/hypem/favorites/*.mp3; do echo "$f" >> /tmp/hypem/favorites.m3u; done
 
 echo "Setting playlist to point smb://"
-`sed -i 's/tmp/smb:\/\/$IP_ADDR/g' /tmp/hypem/*.m3u`
+`sed -i 's/\/tmp/smb:\/\/$IP_ADDR/g' /tmp/hypem/*.m3u`
 
 echo "Done!"
